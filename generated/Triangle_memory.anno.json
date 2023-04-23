@@ -1,0 +1,23 @@
+[
+  {
+    "class":"firrtl.EmitCircuitAnnotation",
+    "emitter":"firrtl.VerilogEmitter"
+  },
+  {
+    "class":"firrtl.annotations.LoadMemoryAnnotation",
+    "target":"Triangle_memory.Triangle_memory.mem",
+    "fileName":"src/main/scala/lbvh/p0.hex.txt",
+    "hexOrBinary":"h",
+    "originalMemoryNameOpt":"mem"
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxTargetDirAnno",
+    "targetDir":"generated"
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxInlineAnno",
+    "target":"Triangle_memory.Triangle_memory",
+    "name":"Triangle_memory.Triangle_memory.mem.v",
+    "text":"module BindsTo_0_Triangle_memory(\n  input         clock,\n  input         reset,\n  input  [9:0]  io_addr,\n  input         io_wrEna,\n  input  [31:0] io_wrData,\n  output [31:0] io_rdData\n);\n\ninitial begin\n  $readmemh(\"src/main/scala/lbvh/p0.hex.txt\", Triangle_memory.mem);\nend\n                      endmodule\n\nbind Triangle_memory BindsTo_0_Triangle_memory BindsTo_0_Triangle_memory_Inst(.*);"
+  }
+]

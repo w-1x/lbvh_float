@@ -1,3 +1,4 @@
+/*
 package lbvh
 
 import chisel3._
@@ -116,5 +117,6 @@ class Top extends Module {
 
   // 将 BVH 树写入输出文件
   writeBVHTree(io.outputFileName, bvhTree)
-   */
+ */
 }
+ */

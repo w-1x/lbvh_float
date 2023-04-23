@@ -1,17 +1,16 @@
-package lbvh
+/*package lbvh
 
 import chisel3._
 import chisel3.util._
 import hardfloat._
 
 class Top_1 extends Module {
-  val inputFileName = "src/main/scala/lbvh/1.txt"
-  val depth = 4
-  val width = 32
+
   val io = IO(new Bundle {
     // val inputFileName = Input(String) // 从文本中读取的三角形图元的坐标文件名
     // val outputFileName = Input(String) // 输出 BVH 树的文件名
     val out = Output(new Primitive(width))
+    val out_ready = Output(Bool())
   })
 
   val clock_count_reg = RegInit(0.U(64.W))
@@ -19,7 +18,7 @@ class Top_1 extends Module {
 
   clock_count_reg := clock_count_reg + 1.U
 
-  when(clock_count_reg % 5.U === 4.U) {
+  when(clock_count_reg % 26.U === 21.U) {
     addr_in_reg := addr_in_reg + 9.U
   }
   // 步骤 1：从文本中读取三角形图元的坐标
@@ -66,57 +65,45 @@ class Top_1 extends Module {
   Fadd_1_z.io.a := triangles.p0.z
   Fadd_1_z.io.b := triangles.p1.z
   centr_1.z := Fadd_1_z.io.out
-  when(clock_count_reg % 6.U === 3.U) {
-    Fadd_2_x.io.a := centr_1.x
-    Fadd_2_x.io.b := add_3.x
-    centr_2.x := Fadd_2_x.io.out
 
-    Fadd_2_y.io.a := centr_1.y
-    Fadd_2_y.io.b := add_3.y
-    centr_2.y := Fadd_2_y.io.out
+  Fadd_2_x.io.a := centr_1.x
+  Fadd_2_x.io.b := add_3.x
+  centr_2.x := Fadd_2_x.io.out
 
-    Fadd_2_z.io.a := centr_1.z
-    Fadd_2_z.io.b := add_3.z
-    centr_2.z := Fadd_2_z.io.out
-  } otherwise {
-    Fadd_2_x.io.a := 0.U
-    Fadd_2_x.io.b := 0.U
-    centr_2.x := Fadd_2_x.io.out
+  Fadd_2_y.io.a := centr_1.y
+  Fadd_2_y.io.b := add_3.y
+  centr_2.y := Fadd_2_y.io.out
 
-    Fadd_2_y.io.a := 0.U
-    Fadd_2_y.io.b := 0.U
-    centr_2.y := Fadd_2_y.io.out
-
-    Fadd_2_z.io.a := 0.U
-    Fadd_2_z.io.b := 0.U
-    centr_2.z := Fadd_2_z.io.out
-  }
-
-  primitives.triangle := triangles
-  primitives.centr := centr_2
+  Fadd_2_z.io.a := centr_1.z
+  Fadd_2_z.io.b := add_3.z
+  centr_2.z := Fadd_2_z.io.out
 
 //再平均
-  /*
-    val Fdiv_x = Module(new Float_DIV)
-    val Fdiv_y = Module(new Float_DIV)
-    val Fdiv_z = Module(new Float_DIV)
 
-    Fdiv_x.io.a := centr_2.x
-    Fdiv_x.io.b := 1077936128.U
-    Fdiv_x.io.valid := (clock_count_reg % 5.U === 0.U)
-    primitives.centr.x := Fdiv_x.io.out
+  val Fdiv_x = Module(new Float_DIV)
+  val Fdiv_y = Module(new Float_DIV)
+  val Fdiv_z = Module(new Float_DIV)
 
-    Fdiv_y.io.a := centr_2.y
-    Fdiv_y.io.b := 1077936128.U
-    Fdiv_y.io.valid := (clock_count_reg % 5.U === 0.U)
-    primitives.centr.y := Fdiv_y.io.out
+  Fdiv_x.io.a := centr_2.x
+  Fdiv_x.io.b := 1077936128.U
+  Fdiv_x.io.valid := (clock_count_reg % 26.U === 7.U && clock_count_reg =/= 1.U)
+  primitives.centr.x := Fdiv_x.io.out
 
-    Fdiv_z.io.a := centr_2.z
-    Fdiv_z.io.b := 1077936128.U
-    Fdiv_z.io.valid := (clock_count_reg % 5.U === 0.U)
-    primitives.centr.z := Fdiv_z.io.out
-   */
+  Fdiv_y.io.a := centr_2.y
+  Fdiv_y.io.b := 1077936128.U
+  Fdiv_y.io.valid := (clock_count_reg % 26.U === 7.U && clock_count_reg =/= 1.U)
+  primitives.centr.y := Fdiv_y.io.out
+
+  Fdiv_z.io.a := centr_2.z
+  Fdiv_z.io.b := 1077936128.U
+  Fdiv_z.io.valid := (clock_count_reg % 26.U === 7.U && clock_count_reg =/= 1.U)
+  primitives.centr.z := Fdiv_z.io.out
+
+  primitives.triangle := triangles
+
   io.out.centr := primitives.centr
   io.out.triangle := primitives.triangle
+  io.out_ready := Fdiv_x.io.ready
 
 }
+ */

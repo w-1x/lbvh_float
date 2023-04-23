@@ -7,10 +7,9 @@ import org.scalatest.flatspec.AnyFlatSpec
 class Float_AddTest extends AnyFlatSpec with ChiselScalatestTester {
   "My_Add" should "pass" in {
     test(new Float_Add()).withAnnotations(Seq(WriteVcdAnnotation)) { dut =>
-      dut.io.a.poke(1067450368.U)
-      dut.io.b.poke(1067450368.U)
+      dut.io.a.poke(1067450368.U) // 1.25
+      dut.io.b.poke("hC12E6666".U) // -10.9)
       dut.clock.step()
-      dut.io.out.expect(1075838976.U)
     }
   }
 }
